@@ -21,10 +21,12 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.velocity = transform.up * Input.GetAxis("Vertical") * speed;
         transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z + Input.GetAxisRaw("Horizontal") * rotSpeed * -1);
+
         if (Input.GetKey(KeyCode.Space) && canShoot)
         {
             StartCoroutine(shootCD());
         }
+
         if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
         {
             StartCoroutine(dash());
