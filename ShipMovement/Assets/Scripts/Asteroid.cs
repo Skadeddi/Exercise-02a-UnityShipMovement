@@ -7,7 +7,6 @@ public class Asteroid : MonoBehaviour
     public float speed;
     public GameObject asteroid;
 
-    // Start is called before the first frame update
     void Start()
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
