@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         rb.velocity = transform.up * Input.GetAxis("Vertical") * speed;
-        transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z + Input.GetAxisRaw("Horizontal") * rotSpeed * -1);
+        transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z + Input.GetAxisRaw("Mouse X") * rotSpeed * -1);
 
         if (Input.GetKey(KeyCode.Space) && canShoot)
         {
@@ -31,8 +31,6 @@ public class PlayerMovement : MonoBehaviour
         {
             StartCoroutine(dash());
         }
-
-        wrap();
     }
 
     private IEnumerator dash()
@@ -42,26 +40,6 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(dashTime);
         speed /= dashMod;
         canDash = true;
-    }
-
-    private void wrap()
-    {
-        if (transform.position.x < -11.5f)
-        {
-            transform.position = new Vector3(11.4f, transform.position.y);
-        }
-        else if (transform.position.x > 11.5f)
-        {
-            transform.position = new Vector3(-11.4f, transform.position.y);
-        }
-        if (transform.position.y > 5.3f)
-        {
-            transform.position = new Vector3(transform.position.x, -5.2f);
-        }
-        else if (transform.position.y < -5.3f)
-        {
-            transform.position = new Vector3(transform.position.x, 5.2f);
-        }
     }
 
     private IEnumerator shootCD()
