@@ -6,12 +6,14 @@ public class Enemy : MonoBehaviour
 {
     private Rigidbody2D rb;
     public float speed, yvar;
-    public GameObject explosion, bullet, player;
+    public int scoreValue;
+    public GameObject explosion, bullet, player, respawnHandler;
 
     private void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         player = GameObject.Find("Ship");
+        respawnHandler = GameObject.Find("PlayerRespawnController");
         StartCoroutine(shoot());
     }
     void Update()
@@ -23,6 +25,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.layer == 6)
         {
+            respawnHandler.GetComponent<Scorekeeper>().addScore(scoreValue);
             Instantiate(explosion, new Vector3(transform.position.x, transform.position.y + 1, -1), Quaternion.Euler(0, 0, 0));
             Destroy(gameObject);
         }

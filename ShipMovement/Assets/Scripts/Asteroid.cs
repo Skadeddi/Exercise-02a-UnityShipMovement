@@ -5,11 +5,13 @@ using UnityEngine;
 public class Asteroid : MonoBehaviour
 {
     public float speed;
-    public GameObject asteroid, explosion;
+    public int scoreValue;
+    public GameObject asteroid, explosion, respawnHandler;
 
     void Start()
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        respawnHandler = GameObject.Find("PlayerRespawnController");
         transform.eulerAngles = new Vector3(0, 0, Random.Range(0, 360));
         rb.velocity = transform.up * speed;
     }
@@ -28,6 +30,7 @@ public class Asteroid : MonoBehaviour
                 }
             }
 
+            respawnHandler.GetComponent<Scorekeeper>().addScore(scoreValue);
             Instantiate(explosion, new Vector3(transform.position.x, transform.position.y + 1, -1), Quaternion.Euler(0, 0, 0));
             Destroy(collision.gameObject);
             Destroy(gameObject);

@@ -113,8 +113,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
+  scoreValue: 100
   asteroid: {fileID: 5409448041239028920}
   explosion: {fileID: 9068868425364429691, guid: 1d8ed8f3594d4684cbf02efd7988f5dd, type: 3}
+  respawnHandler: {fileID: 0}
 --- !u!50 &2646562339871683803
 Rigidbody2D:
   serializedVersion: 4

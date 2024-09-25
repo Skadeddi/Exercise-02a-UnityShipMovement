@@ -129,9 +129,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   yvar: 5
+  scoreValue: 500
   explosion: {fileID: 9068868425364429691, guid: 1d8ed8f3594d4684cbf02efd7988f5dd, type: 3}
   bullet: {fileID: 6108319689275917696, guid: 59c5ceb19463f394cb10f884acaf0343, type: 3}
   player: {fileID: 0}
+  respawnHandler: {fileID: 0}
 --- !u!114 &6161435589298403371
 MonoBehaviour:
   m_ObjectHideFlags: 0
