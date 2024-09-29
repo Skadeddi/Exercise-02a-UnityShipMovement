@@ -4875,6 +4875,7 @@ GameObject:
   - component: {fileID: 3545175006868511591}
   - component: {fileID: 2380197378014411822}
   - component: {fileID: 3289419220979997994}
+  - component: {fileID: -2475689254555150413}
   m_Layer: 3
   m_Name: Ship
   m_TagString: Untagged
@@ -4964,15 +4965,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b895a393e5977e48a4874c849fbc482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canShoot: 1
+  canDash: 1
+  airburst: 0
   speed: 10
   rotSpeed: 5
-  shootTime: 0.1
+  shootTime: 0.2
   dashMod: 5
   dashTime: 0.25
+  defaultSpeed: 0
+  bulletSizeMod: 1
+  bulletSpeedMod: 1
+  bulletPierce: 1
+  abCount: 0
   laser: {fileID: 6108319689275917696, guid: 10e857d0f918b1549b68f9702bd42d36, type: 3}
   lp1: {fileID: 1690411334130839274}
   lp2: {fileID: 8270706611302161819}
   explosion: {fileID: 9068868425364429691, guid: 1d8ed8f3594d4684cbf02efd7988f5dd, type: 3}
+  shield: {fileID: 2375593117220094756, guid: c55a1dadaebbeec4ba06da0bf25ab6b0, type: 3}
 --- !u!50 &3545175006868511591
 Rigidbody2D:
   serializedVersion: 4
@@ -5012,6 +5022,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bcae3cf9a4af3844a653223cdc8f4fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 0}
 --- !u!60 &3289419220979997994
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -5060,6 +5071,20 @@ PolygonCollider2D:
       - {x: -0.5, y: -0.28866667}
       - {x: 0.5, y: -0.28866667}
   m_UseDelaunayMesh: 0
+--- !u!114 &-2475689254555150413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5893817453008223800}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 930f2b747bab91243b527346c4c2c6be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shield: {fileID: 2375593117220094756, guid: c55a1dadaebbeec4ba06da0bf25ab6b0, type: 3}
+  waitTime: 15
 --- !u!1 &8270706611302161819
 GameObject:
   m_ObjectHideFlags: 0

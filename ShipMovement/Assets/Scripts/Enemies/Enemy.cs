@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Enemy : MonoBehaviour
 {
@@ -35,9 +36,19 @@ public class Enemy : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(3);
             GameObject newBullet = Instantiate(bullet, new Vector3(transform.position.x, transform.position.y, transform.position.z + 1), Quaternion.Euler(0, 0, 0));
-            newBullet.transform.up = player.transform.position - transform.position;
+            try
+            {
+                newBullet.transform.up = player.transform.position - transform.position;
+            }
+            catch (Exception e)
+            {
+                if(e == null)
+                {
+                    //idk i just hate the error its so annoying
+                }
+            }
         }
     }
 }

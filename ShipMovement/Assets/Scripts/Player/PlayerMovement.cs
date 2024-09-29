@@ -5,11 +5,12 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
-    public bool canShoot = true, canDash = true;
+    public bool canShoot = true, canDash = true, airburst;
     private GameObject respawnController;
+    private bool intangible = false;
 
-    public float speed, rotSpeed, shootTime, dashMod, dashTime, defaultSpeed;
-    public GameObject laser, lp1, lp2, explosion;
+    public float speed, rotSpeed, shootTime, dashMod, dashTime, defaultSpeed, bulletSizeMod, bulletSpeedMod, bulletPierce = 1, abCount;
+    public GameObject laser, lp1, lp2, explosion, shield;
 
     // Start is called before the first frame update
     void Start()
@@ -30,10 +31,10 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(shootCD());
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+        /*if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
         {
             StartCoroutine(dash());
-        }
+        }*/
     }
 
     private IEnumerator dash()
@@ -48,16 +49,26 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator shootCD()
     {
         canShoot = false;
-        Instantiate(laser, lp1.transform.position, lp1.transform.rotation);
+        Laser tempLaser = Instantiate(laser, lp1.transform.position, lp1.transform.rotation).GetComponent<Laser>();
+        tempLaser.transform.localScale *= bulletSizeMod;
+        tempLaser.speed *= bulletSpeedMod;
+        tempLaser.pierce = bulletPierce;
+        tempLaser.airburst = airburst;
+        tempLaser.abCount = abCount;
         yield return new WaitForSeconds(shootTime);
-        Instantiate(laser, lp2.transform.position, lp2.transform.rotation);
+        tempLaser = Instantiate(laser, lp2.transform.position, lp2.transform.rotation).GetComponent<Laser>();
+        tempLaser.transform.localScale *= bulletSizeMod;
+        tempLaser.speed *= bulletSpeedMod;
+        tempLaser.pierce = bulletPierce;
+        tempLaser.airburst = airburst;
+        tempLaser.abCount = abCount;
         yield return new WaitForSeconds(shootTime);
         canShoot = true;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.layer == 7)
+        if(collision.gameObject.layer == 7 && !intangible)
         {
             Instantiate(explosion, new Vector3(transform.position.x, transform.position.y + 1, -1), Quaternion.Euler(0, 0, 0));
             respawnController.GetComponent<PlayerRespawn>().StartRespawn();
@@ -67,12 +78,34 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 7)
+        if (collision.gameObject.layer == 7 && !intangible)
         {
             Instantiate(explosion, new Vector3(transform.position.x, transform.position.y + 1, 0), Quaternion.Euler(0, 0, 0));
             respawnController.GetComponent<PlayerRespawn>().StartRespawn();
             gameObject.SetActive(false);
         }
+    }
+
+    private void OnEnable()
+    {
+        Instantiate(shield, new Vector3(0, 0, 1), Quaternion.Euler(0, 0, 0));
+        StartCoroutine(SpawnProt());
+    }
+
+    IEnumerator SpawnProt()
+    {
+        intangible = true;
+        yield return new WaitForSeconds(0.1f);
+        intangible = false;
+    }
+
+    public void CanAirburst()
+    {
+        if (abCount < 10)
+        {
+            abCount++;
+        }
+        airburst = true;
     }
 
 }

@@ -6,10 +6,12 @@ public class Asteroid : MonoBehaviour
 {
     public float speed;
     public int scoreValue;
-    public GameObject asteroid, explosion, respawnHandler;
+    public GameObject asteroid, explosion, respawnHandler, upgrade, shield, airburst, pierce;
+    private PolygonCollider2D coll;
 
     void Start()
     {
+        coll = gameObject.GetComponent<PolygonCollider2D>();
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         respawnHandler = GameObject.Find("PlayerRespawnController");
         transform.eulerAngles = new Vector3(0, 0, Random.Range(0, 360));
@@ -32,7 +34,29 @@ public class Asteroid : MonoBehaviour
 
             respawnHandler.GetComponent<Scorekeeper>().addScore(scoreValue);
             Instantiate(explosion, new Vector3(transform.position.x, transform.position.y + 1, -1), Quaternion.Euler(0, 0, 0));
-            Destroy(collision.gameObject);
+            if(Mathf.Floor(Random.Range(0, 5)) == 0)
+            {
+                Instantiate(upgrade, new Vector3(transform.position.x, transform.position.y, 1), Quaternion.Euler(0, 0, 0));
+            }
+            else
+            {
+                switch (Mathf.Floor(Random.Range(0, 30)))
+                {
+                    case 0:
+                        Instantiate(pierce, transform.position, Quaternion.Euler(0, 0, 0));
+                        break;
+                    case 1:
+                        Instantiate(airburst, transform.position, Quaternion.Euler(0, 0, 0));
+                        break;
+                    case 2:
+                        Instantiate(shield, transform.position, Quaternion.Euler(0, 0, 0));
+                        break;
+                }
+            }
+            if (collision.gameObject.CompareTag("Bullet"))
+            {
+                collision.gameObject.GetComponent<Laser>().damaged();
+            }
             Destroy(gameObject);
         }
     }

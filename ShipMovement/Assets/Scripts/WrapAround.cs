@@ -4,23 +4,31 @@ using UnityEngine;
 
 public class WrapAround : MonoBehaviour
 {
+    public Camera cam;
+
+    private void Start()
+    {
+        cam = GameObject.Find("Main Camera").GetComponent<Camera>();
+    }
     void Update()
     {
-        if (transform.position.x < -11.5f - transform.localScale.y / 2.0f)
+        float screenTop = cam.ScreenToWorldPoint(new Vector3(0, Screen.height, 0)).y;
+        float screenRight = cam.ScreenToWorldPoint(new Vector3(Screen.width, 0, 0)).x;
+        if (transform.position.x < -screenRight - transform.localScale.y / 2.0f)
         {
-            transform.position = new Vector3(11.4f + transform.localScale.y / 2.0f, transform.position.y);
+            transform.position = new Vector3(screenRight + transform.localScale.y / 2.0f, transform.position.y);
         }
-        else if (transform.position.x > 11.5f + transform.localScale.y / 2.0f)
+        else if (transform.position.x > screenRight + transform.localScale.y / 2.0f)
         {
-            transform.position = new Vector3(-11.4f - transform.localScale.y / 2.0f, transform.position.y);
+            transform.position = new Vector3(-screenRight - transform.localScale.y / 2.0f, transform.position.y);
         }
-        if (transform.position.y > 5.3f + transform.localScale.y / 2.0f)
+        if (transform.position.y > screenTop + transform.localScale.y / 2.0f)
         {
-            transform.position = new Vector3(transform.position.x, -5.2f - transform.localScale.y / 2.0f);
+            transform.position = new Vector3(transform.position.x, -screenTop - transform.localScale.y / 2.0f);
         }
-        else if (transform.position.y < -5.3f - transform.localScale.y / 2.0f)
+        else if (transform.position.y < -screenTop - transform.localScale.y / 2.0f)
         {
-            transform.position = new Vector3(transform.position.x, 5.2f + transform.localScale.y / 2.0f);
+            transform.position = new Vector3(transform.position.x, screenTop + transform.localScale.y / 2.0f);
         }
     }
 }
