@@ -8,7 +8,7 @@ public class UpgradeText : MonoBehaviour
     public float speed;
     void Start()
     {
-        gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, speed);
+        gameObject.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(0, speed);
         Destroy(gameObject, 3);
     }
 }

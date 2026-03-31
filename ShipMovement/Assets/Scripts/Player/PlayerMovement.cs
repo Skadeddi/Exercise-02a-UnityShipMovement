@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rb.velocity = transform.up * Input.GetAxis("Vertical") * speed;
+        rb.linearVelocity = transform.up * Input.GetAxis("Vertical") * speed;
         transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z + Input.GetAxisRaw("Mouse X") * rotSpeed * -1);
 
         if (Input.GetKey(KeyCode.Space) && canShoot)

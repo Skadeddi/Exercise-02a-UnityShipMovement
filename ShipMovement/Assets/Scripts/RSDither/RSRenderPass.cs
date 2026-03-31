@@ -1,7 +1,8 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.RenderGraphModule;
 using UnityEngine.Rendering.Universal;
 using UnityEditor;
 
@@ -11,6 +12,19 @@ public class RSRenderPass : ScriptableRenderPass
     private Material material;
     private RenderTextureDescriptor textureDescriptor;
     private RTHandle textureHandle;
+
+    RenderGraph m_RenderGraph;
+
+    void InitializeRenderGraph()
+    {
+        m_RenderGraph = new RenderGraph("MyRenderGraph");
+    }
+
+    void CleanupRenderGraph()
+    {
+        m_RenderGraph.Cleanup();
+        m_RenderGraph = null;
+    }
 
     public RSRenderPass(Material material)
     {
@@ -58,3 +72,4 @@ public class RSRenderPass : ScriptableRenderPass
         if (textureHandle != null) textureHandle.Release();
     }
 }
+*/

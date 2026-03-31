@@ -9,7 +9,7 @@ public class EnemyLaser : MonoBehaviour
     void Start()
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        rb.velocity = transform.up * speed;
+        rb.linearVelocity = transform.up * speed;
         StartCoroutine(color());
         Destroy(gameObject, 1);
     }

@@ -15,7 +15,7 @@ public class Asteroid : MonoBehaviour
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         respawnHandler = GameObject.Find("PlayerRespawnController");
         transform.eulerAngles = new Vector3(0, 0, Random.Range(0, 360));
-        rb.velocity = transform.up * speed;
+        rb.linearVelocity = transform.up * speed;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

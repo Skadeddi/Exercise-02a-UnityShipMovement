@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
     }
     void Update()
     {
-        rb.velocity = new Vector3(speed, Mathf.Sin(Time.realtimeSinceStartup) * yvar, 0);
+        rb.linearVelocity = new Vector3(speed, Mathf.Sin(Time.realtimeSinceStartup) * yvar, 0);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
